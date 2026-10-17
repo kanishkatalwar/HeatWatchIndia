@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% set active_page = "dashboard" %}
+{% block title %}Dashboard{% endblock %}
+{% block crumb %}Monitoring / Dashboard{% endblock %}
+{% block heading %}Heatwave Monitoring Dashboard{% endblock %}
+{% block subtitle %}Overview of forecast temperatures, advisories and weather stations across monitored regions{% endblock %}
+
+{% block banner_class %}big{% endblock %}
+{% block banner_extra %}
+<div class="ovals">
+    <div class="oval"><div class="stat-icon">🌡️</div><div><span class="stat-label">Highest forecast</span><strong id="highestTemperature">--°C</strong><small id="highestRegion">Loading…</small></div></div>
+    <div class="oval"><div class="stat-icon">🛰️</div><div><span class="stat-label">Active stations</span><strong id="activeStations">--</strong><small id="stationSummary">Monitoring stations</small></div></div>
+    <div class="oval"><div class="stat-icon">🚨</div><div><span class="stat-label">Red alerts</span><strong id="redAlerts">--</strong><small>Critical advisories</small></div></div>
+    <div class="oval"><div class="stat-icon">📊</div><div><span class="stat-label">Total forecasts</span><strong id="totalForecasts">--</strong><small>Records in database</small></div></div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <span class="section-tag">REGIONAL MONITORING</span>
+            <h2>Heat Severity Map</h2>
+        </div>
+        <a href="/forecasts" class="view-link">All forecasts →</a>
+    </div>
+
+    <div class="map-layout">
+        <div class="map-box" id="mapBox">
+            <div class="map-loading" id="mapLoading">Loading map…</div>
+            <svg id="indiaMap" role="img" aria-label="Map of India coloured by forecast temperature. Select a state to zoom in."></svg>
+            <div class="map-overlay tl">INDIA · MAX FORECAST TEMP</div>
+            <div class="map-overlay bl">
+                <div class="map-grad"></div>
+                <div class="map-grad-l"><span id="legLo">—</span><span id="legMid">—</span><span id="legHi">—</span></div>
+            </div>
+            <div class="map-overlay br">
+                <div id="mapHint">CLICK A STATE TO ZOOM</div>
+                <div id="mapCoord">—</div>
+            </div>
+        </div>
+
+        <div class="map-side">
+            <div class="map-view on" id="viewOverview">
+                <div class="eyebrow">Hottest regions</div>
+                <div id="rankList"><div class="skeleton" style="margin:12px 0"></div><div class="skeleton" style="margin:12px 0"></div><div class="skeleton" style="margin:12px 0"></div></div>
+                <p class="note" id="mapNote"></p>
+            </div>
+            <div class="map-view" id="viewDetail"></div>
+        </div>
+    </div>
+</section>
+
+<section class="grid-2">
+    <div class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="section-tag">TREND</span>
+                <h2>Temperature Trend</h2>
+            </div>
+            <span class="note" id="trendSource"></span>
+        </div>
+        <div id="trendChart"><div class="skeleton" style="height:180px"></div></div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="section-tag">OBSERVATIONS</span>
+                <h2>Quick Statistics</h2>
+            </div>
+        </div>
+        <div id="quickStats"><div class="skeleton" style="height:120px"></div></div>
+    </div>
+</section>
+
+<section class="grid-2">
+    <div class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="section-tag">ALERT CENTER</span>
+                <h2>Recent Advisories</h2>
+            </div>
+            <a href="/advisories" class="view-link">View all →</a>
+        </div>
+        <div id="advisoryList" class="advisory-list"><div class="skeleton" style="height:48px"></div></div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-header">
+            <div>
+                <span class="section-tag">SENSOR NETWORK</span>
+                <h2>Station Status</h2>
+            </div>
+            <a href="/stations" class="view-link">View all →</a>
+        </div>
+        <div id="stationList"><div class="skeleton" style="height:48px"></div></div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/india-map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

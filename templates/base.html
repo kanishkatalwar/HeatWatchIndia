@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HeatWatch India | {% block title %}{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ================= FLOATING OVAL NAVIGATION (left) ================= -->
+<nav class="pillnav" aria-label="Main navigation">
+    <a href="/" class="pn-brand" title="HeatWatch India"><span class="brand-icon">🌡️</span><span class="tx"><b>HeatWatch</b><small>INDIA</small></span></a>
+    <div class="pn-links">
+        <a href="/" class="pn-link {% if active_page == 'dashboard' %}active{% endif %}"><span class="ic">▣</span><span class="tx">Dashboard</span></a>
+        <a href="/forecasts" class="pn-link {% if active_page == 'forecasts' %}active{% endif %}"><span class="ic">◈</span><span class="tx">Forecasts</span></a>
+        <a href="/advisories" class="pn-link {% if active_page == 'advisories' %}active{% endif %}"><span class="ic">⚠</span><span class="tx">Advisories</span></a>
+        <a href="/stations" class="pn-link {% if active_page == 'stations' %}active{% endif %}"><span class="ic">⌁</span><span class="tx">Stations</span></a>
+        <a href="/stakeholders" class="pn-link {% if active_page == 'stakeholders' %}active{% endif %}"><span class="ic">♙</span><span class="tx">Stakeholders</span></a>
+    </div>
+    <div class="pn-status" title="System status"><span class="status-dot" id="sysDot"></span><span class="tx" id="sysText">Checking…</span><small id="sysSub" hidden></small></div>
+</nav>
+
+<main class="main-content">
+
+    <!-- ================= PAGE BANNER (illustrated) ================= -->
+    <header class="banner {% block banner_class %}{% endblock %}">
+        <div class="banner-top">
+            <div>
+                <p class="breadcrumb">{% block crumb %}{% endblock %}</p>
+                <h1>{% block heading %}{% endblock %}</h1>
+                <p class="subtitle">{% block subtitle %}{% endblock %}</p>
+            </div>
+            <div class="topbar-right">
+                <div class="sync-badge wait" id="syncBadge"><i></i>Syncing…</div>
+                <div class="date-chip" id="today">—</div>
+            </div>
+        </div>
+        {% block banner_extra %}{% endblock %}
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <span>HeatWatch India</span>
+        <span>Heatwave Monitoring &amp; Forecasting System</span>
+        <span>© <span id="year">2026</span></span>
+    </footer>
+</main>
+
+<script src="{{ url_for('static', filename='js/common.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

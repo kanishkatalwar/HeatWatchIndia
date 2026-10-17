@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set active_page = "advisories" %}
+{% block title %}Advisories{% endblock %}
+{% block crumb %}Monitoring / Advisories{% endblock %}
+{% block heading %}Heatwave Advisories{% endblock %}
+{% block subtitle %}Heatwave alerts generated from forecast data{% endblock %}
+
+{% block content %}
+<section class="summary-row">
+    <div class="summary"><span>Total advisories</span><strong id="sumTotal">—</strong></div>
+    <div class="summary"><span>Red</span><strong id="sumRED" style="color:var(--red)">—</strong></div>
+    <div class="summary"><span>Orange</span><strong id="sumORANGE" style="color:var(--org-tx)">—</strong></div>
+    <div class="summary"><span>Yellow</span><strong id="sumYELLOW" style="color:var(--yel-tx)">—</strong></div>
+</section>
+
+<section class="tips" aria-label="General heat safety tips">
+    <span class="tips-title">General heat-safety basics</span>
+    <span class="tip"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg>Drink water often</span>
+    <span class="tip"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0118 0H3zM12 12v7a2 2 0 004 0"/></svg>Seek shade</span>
+    <span class="tip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Avoid 12–4 pm outdoors</span>
+    <span class="tip"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a5 5 0 0110 0M15 20a4 4 0 016 0"/></svg>Check on elders</span>
+</section>
+
+<div class="toolbar">
+    <div class="chips" id="levelChips"></div>
+    <input class="input" type="search" id="search" placeholder="Search message or region…" aria-label="Search advisories">
+    <select class="input" id="regionFilter" aria-label="Filter by region"><option value="ALL">All regions</option></select>
+    <span class="count" id="count"></span>
+</div>
+<div class="advisory-grid" id="advisoryGrid"></div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/advisories.js') }}"></script>{% endblock %}

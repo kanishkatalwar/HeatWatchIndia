@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% set active_page = "stations" %}
+{% block title %}Weather Stations{% endblock %}
+{% block crumb %}Monitoring / Stations{% endblock %}
+{% block heading %}Weather Stations{% endblock %}
+{% block subtitle %}Monitoring infrastructure connected to HeatWatch India{% endblock %}
+
+{% block content %}
+<section class="summary-row">
+    <div class="summary"><span>Stations</span><strong id="sumTotal">—</strong></div>
+    <div class="summary"><span>Active</span><strong id="sumActive" style="color:var(--green)">—</strong></div>
+    <div class="summary"><span>Not active</span><strong id="sumInactive" style="color:var(--red)">—</strong></div>
+    <div class="summary"><span>Avg latest temp</span><strong id="sumTemp">—</strong></div>
+</section>
+
+<div class="panel">
+    <div class="toolbar">
+        <input class="input" type="search" id="search" placeholder="Search stations…" aria-label="Search stations">
+        <select class="input" id="regionFilter" aria-label="Filter by region"><option value="ALL">All regions</option></select>
+        <select class="input" id="statusFilter" aria-label="Filter by status"><option value="ALL">All statuses</option></select>
+        <span class="count" id="count"></span>
+    </div>
+    <div class="table-wrap">
+        <table id="stationTable"><thead><tr></tr></thead><tbody></tbody></table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/stations.js') }}"></script>{% endblock %}

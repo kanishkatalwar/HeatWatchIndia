@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set active_page = "forecasts" %}
+{% block title %}Forecasts{% endblock %}
+{% block crumb %}Monitoring / Forecasts{% endblock %}
+{% block heading %}Heatwave Forecasts{% endblock %}
+{% block subtitle %}Regional temperature forecasts with risk classification{% endblock %}
+
+{% block content %}
+<section class="summary-row">
+    <div class="summary"><span>Forecasts</span><strong id="sumTotal">—</strong></div>
+    <div class="summary"><span>Highest</span><strong id="sumMax">—</strong></div>
+    <div class="summary"><span>Average</span><strong id="sumAvg">—</strong></div>
+    <div class="summary"><span>Critical (≥45°C)</span><strong id="sumCrit">—</strong></div>
+</section>
+
+<div class="panel">
+    <div class="toolbar">
+        <input class="input" type="search" id="search" placeholder="Search region, state or date…" aria-label="Search forecasts">
+        <select class="input" id="regionFilter" aria-label="Filter by region"><option value="ALL">All regions</option></select>
+        <select class="input" id="riskFilter" aria-label="Filter by risk">
+            <option value="ALL">All risk levels</option>
+            <option>CRITICAL</option><option>HIGH</option><option>MODERATE</option>
+        </select>
+        <select class="input" id="severityFilter" aria-label="Filter by database severity"><option value="ALL">All severities</option></select>
+        <span class="count" id="count"></span>
+    </div>
+    <div class="table-wrap">
+        <table id="forecastTable"><thead><tr></tr></thead><tbody></tbody></table>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/forecasts.js') }}"></script>{% endblock %}
